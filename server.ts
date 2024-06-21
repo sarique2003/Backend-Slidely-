@@ -1,4 +1,3 @@
-﻿// server.ts
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
@@ -48,6 +47,34 @@ app.get('/read', (req: Request, res: Response) => {
     } else {
         res.status(404).json({ error: 'No submissions found' });
     }
+});
+
+// Delete endpoint
+app.delete('/delete', (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Read existing submissions
+    let submissions: any[] = [];
+    if (fs.existsSync(submissionsFilePath)) {
+        const submissionsData = fs.readFileSync(submissionsFilePath, 'utf8');
+        submissions = JSON.parse(submissionsData);
+    }
+
+    // Filter out the submission with the given email
+    const newSubmissions = submissions.filter(submission => submission.email !== email);
+
+    if (newSubmissions.length === submissions.length) {
+        return res.status(404).json({ error: 'No submission found for the given email' });
+    }
+
+    // Write updated submissions back to file
+    fs.writeFileSync(submissionsFilePath, JSON.stringify(newSubmissions, null, 2));
+
+    res.json({ message: 'Submission deleted successfully' });
 });
 
 // Start server
