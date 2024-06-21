@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "phoneNo": "5551234567",
+    "githubLink": "https://github.com/alicejohnson"
+  },
+  {
+    "Name": "John Doe",
+    "Email": "john.doe@example.com",
+    "PhoneNo": "1234567890",
+    "GithubLink": "https://github.com/johndoe"
+  },
+  {
+    "Name": "Jane Smith",
+    "Email": "jane.smith@example.com",
+    "PhoneNo": "9876543210",
+    "GithubLink": "https://github.com/janesmith"
+  }
+]
